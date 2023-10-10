@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 /* POST API */
 router.post('/task', (req, res, next) => {
@@ -9,4 +9,4 @@ router.post('/task', (req, res, next) => {
     res.json(response)
 })
 
-module.exports = router;
+export default router;
