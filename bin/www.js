@@ -4,9 +4,11 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('csc-425-epic-3:server');
-var http = require('http');
+import app from '../src/app.js';
+import debug from 'debug';
+import { createServer } from 'http';
+
+const debugInstance = debug('csc-425-epic-3:server');
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +21,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -86,5 +88,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  debugInstance('Listening on ' + bind);
 }
