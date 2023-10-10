@@ -1,4 +1,15 @@
 # CSC-425-Epic-3
-Backend for the project,
+Install packages with:
+```
+npm install
+```
 
-MongoDB with express 
+Run the server with:
+```
+npm start
+```
+
+Go to the server's url:
+```
+https://localhost:3000
+```
