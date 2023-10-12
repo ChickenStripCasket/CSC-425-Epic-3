@@ -8,8 +8,7 @@ router.get('/task', (req, res, next) => {
     // get the task id from the query (/api/task?id=[number])
     // ?id=[number]
     const taskId = Number(req.query.id)
-
-    // make sure that the task ID is a valid number.
+    // make sure that the task ID is a number.
     if (isNaN(taskId)) {
         return apiError(res, 'Invalid Task ID was provided.', 400)
     }
