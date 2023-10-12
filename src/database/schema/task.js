@@ -20,3 +20,5 @@ export default taskSchema = new Schema({
         default: false
     }
 });
+
+module.export = mongoose.model('Task', taskSchema);

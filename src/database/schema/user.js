@@ -9,3 +9,5 @@ export default userSchema = new Schema({
         default: () => randomUUID()
     },
 });
+
+module.export = mongoose.model('User', taskSchema);
