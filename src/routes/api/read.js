@@ -21,10 +21,8 @@ router.get('/task', (req, res, next) => {
 })
 
 router.get('/tasks', (req, res, next) => {
-    // query the API
-    getAllTasks()
-        .then(tasks => apiResponse(res, tasks, 200)) // respond with the list of tasks.
-        .catch(error => apiError(res, error, 500)) // respond with an internal server error.
+    // should return a list of all tasks, paginated
+    // takes two optional query paramaters, startAt, and offset, which control pagination.
 })
 
 export default router
