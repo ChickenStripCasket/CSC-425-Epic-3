@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose;
 const { randomUUID } = require('crypto')
 
-export default userSchema = new Schema({
+const userSchema = new Schema({
     // userID is a primary key
     userID: {
         type: 'UUID',
@@ -10,4 +10,4 @@ export default userSchema = new Schema({
     },
 });
 
-module.export = mongoose.model('User', taskSchema);
+export default mongoose.model('User', taskSchema);
