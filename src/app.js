@@ -1,11 +1,9 @@
 import createError from 'http-errors';
 import express, { json, urlencoded, static as static_ } from 'express';
-import { join } from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-
-import readApiRouter from './api/read.js';
-import createApiRouter from './api/create.js';
+import readApiRouter from './routes/api/read.js';
+import createApiRouter from './routes/api/create.js';
 
 const app = express();
 
