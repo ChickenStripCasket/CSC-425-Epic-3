@@ -22,7 +22,7 @@ router.get('/task', (req, res, next) => {
 
 router.get('/tasks', (req, res, next) => {
     // should return a list of all tasks, paginated
-    // takes two optional query paramaters, startAt, and offset, which control pagination.
+    // takes two optional query paramaters, startAt, and limit, which control pagination.
 })
 
 export default router

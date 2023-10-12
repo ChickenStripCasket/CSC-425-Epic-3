@@ -1,0 +1,50 @@
+API Routes:
+
+[METHOD] [ROUTE]
+
+GET /api/task
+    Gets the data for a task based on the provided id.
+    Query Parameters:
+        id: number
+    Authentication:
+        ownerId: number
+    
+GET /api/tasks
+    Gets the data for all tasks, paginated
+    Query Parameters:
+        offset: number
+        limit: number
+    Authentication:
+        ownerId: number
+
+POST /api/task
+    Creates a new task.
+    Body:
+        title: string
+        description: string
+        dueDate: string
+        completed: boolean
+    Authentication:
+        ownerId: number
+
+PUT /api/task
+    Updates an existing task.
+    The caller of this endpoint should be the owner of the task to update it.
+    Body:
+        taskId: number
+        title: string
+        description: string
+        dueDate: string
+        completed: boolean
+    Authentication:
+        ownerId: number
+
+DELETE /api/task
+    Deletes an existing task
+    Query Parameters:
+        taskId: number
+    Authentication:
+        ownerId: number
+
+POST /api/users
+    Creates a new ownerID and returns it. 
