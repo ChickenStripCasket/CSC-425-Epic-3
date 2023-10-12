@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { apiError, apiResponse } from '../../lib/api.js';
-import { getAllTasks, getTask } from '../../database/index.js';
+import { getTask } from '../../database/proxy.js';
 const router = Router();
 
 /* GET task */
