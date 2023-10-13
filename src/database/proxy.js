@@ -91,3 +91,24 @@ export function deleteTask(taskId, ownerId){
         }
     })
 }
+
+export function createTask(ownerId, title, description, dueDate, completed) {
+    return new Promise((resolve, reject) => {
+        try {
+            // Insert the new task into the database and retrieve its ID.
+            const result = tasksDatabase.prepare(`
+                INSERT INTO tasks (owner_id, title, description, due_date, completed)
+                VALUES (?, ?, ?, ?, ?)
+            `).run(ownerId, title, description, dueDate, completed);
+
+            const taskId = result.lastInsertRowid;
+
+            // Retrieve the created task from the database and return it.
+            const createdTask = getTask(taskId, ownerId);
+
+            resolve(createdTask);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
