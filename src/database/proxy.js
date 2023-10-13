@@ -1,3 +1,4 @@
+import router from "../routes/api/read.js"
 import Task from "./classes/Task.js"
 import { tasksDatabase } from "./index.js"
 
@@ -58,6 +59,33 @@ export function getAllTasks(ownerId, limit, offset) {
                 tasks.push(buildTask(task))
             }
             return resolve(tasks)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+function checkIfTaskExists(ownerId, taskId){
+    return new Promise((resolve, reject) => {
+        try {
+            resolve(tasksDatabase.prepare('SELECT ROWID, owner_id FROM tasks WHERE ROWID = ? AND owner_id = ? LIMIT 1').get(taskId, ownerId) ? true : false)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export function deleteTask(taskId, ownerId){
+    return new Promise(async(resolve, reject) => {
+        try {
+            const exists = await checkIfTaskExists(ownerId, taskId)
+            if(!exists){
+                tasksDatabase.prepare(`
+                    DELETE FROM tasks WHERE owner_id = ? AND ROWID = ?
+                `).run(ownerId, taskId)
+                return resolve(true)
+            }
+            return resolve(false)
         } catch (error) {
             reject(error)
         }
