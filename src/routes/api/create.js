@@ -5,7 +5,7 @@ import {createTask} from '../../database/proxy.js';
 const router = Router();
 
 router.post('/task',(req,res) => {
-    const onwerId = Number(req.query.ownerId);
+    const ownerId = Number(req.query.ownerId);
 
     if(isNaN(ownerId)) {
         return apiError(res,'Invalid owner ID was provided',400);
