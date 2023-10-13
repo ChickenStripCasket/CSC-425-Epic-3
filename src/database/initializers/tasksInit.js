@@ -15,6 +15,4 @@ export default function (db, exists) {
         completed INTEGER DEFAULT 0 NOT NULL,
         FOREIGN KEY (owner_id) REFERENCES users (ROWID) ON DELETE CASCADE
     )`).run()
-
-    
 }

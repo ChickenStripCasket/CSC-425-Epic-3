@@ -1,6 +1,17 @@
 import Task from "./classes/Task.js"
 import { tasksDatabase } from "./index.js"
 
+function buildTask(task){
+    return new Task(
+        task.id,
+        task.owner_id,
+        task.title,
+        task.description,
+        new Date(task.due_date),
+        task.completed
+    )
+}
+
 /**
  * Gets a task from the database with the provided id.
  * 
@@ -8,24 +19,18 @@ import { tasksDatabase } from "./index.js"
  * @returns {Promise<Task>} A promise that resolves with the task.
  */
 export function getTask(
-    id
+    id,
+    ownerId
 ) {
     return new Promise((resolve, reject) => {
         try {
             const result = tasksDatabase.prepare(`
                 SELECT ROWID as id, owner_id, title, description, due_date, completed
                 FROM tasks
-                WHERE ROWID = ?
-            `).get(id)
+                WHERE ROWID = ? AND owner_id = ?
+            `).get(id, ownerId)
 
-            return resolve(new Task(
-                result.id,
-                result.owner_id,
-                result.title,
-                result.description,
-                new Date(result.due_date),
-                result.completed
-            ))
+            return resolve(buildTask(result))
         } catch (error) {
             reject(error)
         }
@@ -37,28 +42,22 @@ export function getTask(
  * 
  * @returns {Task[]} An array of every task in the database.
  */
-export function getAllTasks() {
+export function getAllTasks(ownerId, limit, offset) {
     return new Promise((resolve, reject) => {
         try {
-            // not implemented, return placeholder data
-            return resolve([
-                new Task(
-                    0, // task id
-                    0, // owner id
-                    "Plan weekend trip", // title
-                    "Plan a fun weekend getaway", // description
-                    new Date('2023-09-29'), // due date
-                    false, // completed
-                ),
-                new Task(
-                    1,
-                    0,
-                    "Read a book",
-                    "Spend some time reading a new book.",
-                    new Date('2023-09-29'),
-                    false,
-                )
-            ])
+            const result = tasksDatabase.prepare(`
+            SELECT ROWID as id, owner_id, title, description, due_date, completed
+            FROM tasks
+            WHERE owner_id = ?
+            LIMIT ?
+            OFFSET ?
+            `).all(ownerId, limit, offset)
+
+            const tasks = []
+            for(const task of result){
+                tasks.push(buildTask(task))
+            }
+            return resolve(tasks)
         } catch (error) {
             reject(error)
         }
