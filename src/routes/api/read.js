@@ -5,7 +5,7 @@ import { start } from 'repl';
 const router = Router();
 
 /* GET task */
-router.get('/task', (req, res, next) => {
+router.get('/task', (req, res) => {
     // get the task id from the query (/api/task?id=[number])
     // ?id=[number]
 
@@ -27,7 +27,7 @@ router.get('/task', (req, res, next) => {
         .catch(error => apiError(res, error, 404)) // respond with a 404 not found error
 })
 
-router.get('/tasks', (req, res, next) => {
+router.get('/tasks', (req, res) => {
     // should return a list of all tasks, paginated
     // takes two optional query paramaters, startAt, and limit, which control pagination.
 
