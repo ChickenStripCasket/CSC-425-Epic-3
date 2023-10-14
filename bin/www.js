@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 /**
  * Module dependencies.
  */
@@ -7,7 +6,12 @@
 import app from '../src/app.js';
 import debug from 'debug';
 import { createServer } from 'http';
+import dotenv from 'dotenv'
 
+// initialize environment variables
+dotenv.config()
+
+// create debug instance
 const debugInstance = debug('csc-425-epic-3:server');
 
 /**
