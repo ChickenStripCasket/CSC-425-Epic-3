@@ -92,7 +92,7 @@ export function deleteTask(taskId, ownerId) {
   return new Promise(async (resolve, reject) => {
     try {
       const exists = await checkIfTaskExists(ownerId, taskId);
-      if (!exists) {
+      if (exists) {
         tasksDatabase
           .prepare(
             `
@@ -120,7 +120,7 @@ export function createTask(ownerId, title, description, dueDate, completed) {
                 VALUES (?, ?, ?, ?, ?)
             `
         )
-        .run(ownerId, title, description, dueDate, completed);
+        .run(ownerId, title, description, dueDate, completed ? 1 : 0);
 
       const taskId = result.lastInsertRowid;
 
@@ -152,7 +152,7 @@ export function updateTask(
             WHERE ROWID = ? AND owner_id = ?
         `
         )
-        .run(title, description, dueDate, completed, taskId, ownerId);
+        .run(title, description, dueDate, completed ? 1 : 0, taskId, ownerId);
 
       const updateTask = getTask(taskId, ownerId);
 

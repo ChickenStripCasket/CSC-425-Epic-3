@@ -11,7 +11,7 @@ router.put("/task", (req, res) => {
     return apiError(res, "Invalid owner ID was provided.", 400);
   }
 
-  const taskId = Number(req.body.taskId);
+  const taskId = Number(req.body.id);
 
   if (isNaN(taskId)) {
     return apiError(res, "Invalud Task ID was provided", 400);
@@ -21,7 +21,7 @@ router.put("/task", (req, res) => {
 
   updateTask(taskId, ownerId, title, description, dueDate, completed)
     .then((task) => apiResponse(res, task, 200))
-    .catch((error) => apiError(res, error, 500));
+    .catch((error) => apiError(res, error.message, 500));
 });
 
 export default router

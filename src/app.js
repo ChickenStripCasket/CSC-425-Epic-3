@@ -2,6 +2,7 @@ import createError from 'http-errors';
 import express, { json, urlencoded, static as static_ } from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import cors from 'cors';
 import readApiRouter from './routes/api/read.js';
 import createApiRouter from './routes/api/create.js';
 import deleteApiRouter from './routes/api/delete.js';
@@ -14,6 +15,7 @@ app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors())
 
 // create api endpoints
 const apiPath = '/api/v1'
