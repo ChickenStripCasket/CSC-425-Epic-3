@@ -162,3 +162,18 @@ export function updateTask(
     }
   });
 }
+
+/**
+ * Creates a new user and returns the user's id.
+ * 
+ * @returns {number} The new user's id.
+ */
+export function createUser() {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(tasksDatabase.prepare(`INSERT INTO users DEFAULT VALUES`).run().lastInsertRowid)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}

@@ -6,6 +6,7 @@ import readApiRouter from './routes/api/read.js';
 import createApiRouter from './routes/api/create.js';
 import deleteApiRouter from './routes/api/delete.js';
 import updateApiRouter from './routes/api/update.js'
+import usersApiRouter from './routes/api/users.js'
 
 const app = express();
 
@@ -14,10 +15,19 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api', readApiRouter)
-app.use('/api', createApiRouter)
-app.use('/api', updateApiRouter)
-app.use('/api', deleteApiRouter)
+// create api endpoints
+const apiPath = '/api/v1'
+const apiEndpoints = [
+  readApiRouter,
+  createApiRouter,
+  updateApiRouter,
+  deleteApiRouter,
+  usersApiRouter
+]
+
+for (const router of apiEndpoints) {
+  app.use(apiPath, router)
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
