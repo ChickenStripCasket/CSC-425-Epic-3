@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { apiError, apiResponse } from '../../lib/api.js';
 import { getAllTasks, getTask } from '../../database/proxy.js';
-import { start } from 'repl';
+
 const router = Router();
 
 /* GET task */
@@ -24,7 +24,7 @@ router.get('/task', (req, res) => {
     // query the API
     getTask(taskId, ownerId)
         .then(task => apiResponse(res, task, 200)) // respond with the task that was found
-        .catch(error => apiError(res, error, 404)) // respond with a 404 not found error
+        .catch(error => apiError(res, error.message, 404)) // respond with a 404 not found error
 })
 
 router.get('/tasks', (req, res) => {
@@ -35,13 +35,13 @@ router.get('/tasks', (req, res) => {
     const limit = Number(req.query.limit)
     const ownerId = Number(req.query.ownerId)
 
-    if (isNaN(offset) || isNaN(limit) || isNaN(ownerId)) {
-        return apiError(res, 'Invalid Task ID was provided.', 400)
+    if (isNaN(ownerId)) {
+        return apiError(res, 'Invalid owner ID was provided.', 400)
     }
 
-    getAllTasks(ownerId, limit, offset)        
+    getAllTasks(ownerId, isNaN(limit) ? 50 : limit, isNaN(offset) ? 0 : offset)        
         .then(task => apiResponse(res, task, 200)) // respond with the task that was found
-        .catch(error => apiError(res, error, 404)) // respond with a 404 not found error
+        .catch(error => apiError(res, error.message, 404)) // respond with a 404 not found error
 })
 
 export default router
