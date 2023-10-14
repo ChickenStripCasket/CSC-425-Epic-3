@@ -3,8 +3,9 @@ import express, { json, urlencoded, static as static_ } from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import readApiRouter from './routes/api/read.js';
-//import createApiRouter from './routes/api/create.js';
-import createDeleteRouter from './routes/api/delete.js';
+import createApiRouter from './routes/api/create.js';
+import deleteApiRouter from './routes/api/delete.js';
+import updateApiRouter from './routes/api/update.js'
 
 const app = express();
 
@@ -14,8 +15,9 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api', readApiRouter)
-//app.use('/api', createApiRouter)
-app.use('/api', createDeleteRouter)
+app.use('/api', createApiRouter)
+app.use('/api', updateApiRouter)
+app.use('/api', deleteApiRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

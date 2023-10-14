@@ -23,3 +23,5 @@ router.put("/task", (req, res) => {
     .then((task) => apiResponse(res, task, 200))
     .catch((error) => apiError(res, error, 500));
 });
+
+export default router

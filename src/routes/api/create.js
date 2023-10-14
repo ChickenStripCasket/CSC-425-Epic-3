@@ -21,3 +21,5 @@ router.post('/task',(req,res) => {
         .then(task => apiResponse(res,task,201))
         .catch(error => apiError(res,error,500));
 });
+
+export default router
