@@ -1,5 +1,12 @@
 # CSC-425-Epic-3
 
+## Team Members
+* Bolu Akindle
+* Cody Dearth
+* Conner Lindsey
+* Matt Daves
+* Zackary Logan
+
 ## Install packages with:
 ```
 npm install
