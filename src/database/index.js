@@ -3,7 +3,7 @@ import { existsSync, mkdirSync } from 'fs'
 import tasksInit from './initializers/tasksInit.js'
 
 // create data directory
-const dataDirectory = ".data/"
+const dataDirectory = "/data/"
 if (!existsSync(dataDirectory)) {
     mkdirSync(dataDirectory)
 }
