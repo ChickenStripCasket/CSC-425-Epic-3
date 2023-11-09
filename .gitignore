@@ -131,3 +131,6 @@ dist
 
 # database
 .data
+.dockerignore
+Dockerfile
+fly.toml
